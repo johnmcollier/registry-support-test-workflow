@@ -1,0 +1,31 @@
+#
+# Copyright (c) 2020-2021 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+
+name: Next Dockerimage
+
+on:
+  push:
+    branches: [ main ]
+  repository_dispatch:
+    types: [build]
+
+jobs:
+  dispatch:
+    strategy:
+      matrix:
+        repo: ['johnmcollier/registry-test-workflow']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: build
+          client-payload: '{"repo": "${{ github.event.repository.name }}", "sha": "${{ github.sha }}"}'
