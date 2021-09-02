@@ -40,7 +40,7 @@ jobs:
           fi
           
       - name: Get the repository name and commit sha
-        run: ${{ steps.get_commit_info.outputs.REPO }}
+        run: echo ${{ steps.get_commit_info.outputs.REPO }}
         
       - name: Repository dispatch
         uses: peter-evans/repository-dispatch@v1
