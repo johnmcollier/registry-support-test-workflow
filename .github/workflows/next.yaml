@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: EPL-2.0
 #
 
-name: Next Dockerimage
+name: Trigger Registry Deploy
 
 on:
   push:
